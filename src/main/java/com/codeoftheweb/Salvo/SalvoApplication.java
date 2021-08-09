@@ -38,22 +38,6 @@ public class SalvoApplication {
 			Game game2 = new Game(creationDate2);
 			gameRepository.save(game2);
 
-			Date creationDate3 = Date.from(creationDate2.toInstant().plusSeconds(3600));
-			Game game3 = new Game(creationDate3);
-			gameRepository.save(game3);
-
-			Date creationDate4 = Date.from(creationDate3.toInstant().plusSeconds(3600));
-			Game game4 = new Game(creationDate4);
-			gameRepository.save(game4);
-
-			Date creationDate5 = Date.from(creationDate4.toInstant().plusSeconds(3600));
-			Game game5 = new Game(creationDate5);
-			gameRepository.save(game5);
-
-			Date creationDate6 = Date.from(creationDate5.toInstant().plusSeconds(3600));
-			Game game6 = new Game(creationDate6);
-			gameRepository.save(game6);
-
 
 			Date joinDate1 = new Date ();
 			GamePlayer gamePlayer1 = new GamePlayer(joinDate1,game1,player1);
@@ -62,6 +46,14 @@ public class SalvoApplication {
 			Date joinDate2 = new Date ();
 			GamePlayer gamePlayer2 = new GamePlayer(joinDate2,game1,player2);
 			gamePlayerRepository.save(gamePlayer2);
+
+            Date joinDate3 = new Date ();
+            GamePlayer gamePlayer3 = new GamePlayer(joinDate3,game2,player3);
+            gamePlayerRepository.save(gamePlayer3);
+
+            Date joinDate4 = new Date ();
+            GamePlayer gamePlayer4 = new GamePlayer(joinDate4,game2,player4);
+            gamePlayerRepository.save(gamePlayer4);
 			};
 	}
 }

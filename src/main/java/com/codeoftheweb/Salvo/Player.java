@@ -1,10 +1,13 @@
 package com.codeoftheweb.Salvo;
 
 /*Se importan librerias para utilizar*/
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,7 +22,15 @@ public class Player {
 
     @OneToMany(mappedBy = "playerId", fetch = FetchType.EAGER)
     private Set<GamePlayer> gamePlayers;
+    
+    public Map<String, Object> makePlayerDTO(){
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("User Name:", this.getUserName());
+        dto.put("Id:", this.getId());
+        return dto;
+    }
 
+    @JsonIgnore
     public List<Game> getGameId() {
         return gamePlayers.stream().map(GamePlayer::getGameId).collect(Collectors.toList());
     }
@@ -56,4 +67,7 @@ public class Player {
         this.gamePlayers = gamePlayers;
     }
 
+    public long getId() {
+        return id;
+    }
 }

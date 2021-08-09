@@ -3,6 +3,9 @@ package com.codeoftheweb.Salvo;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Entity
 public class GamePlayer {
@@ -20,6 +23,13 @@ public class GamePlayer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="player_id")
     private Player playerId;
+
+    public Map<String, Object> makeGamePlayerDTO(){
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("Id", this.getId());
+        dto.put("Player", this.getPlayerId().makePlayerDTO());
+        return dto;
+    }
 
     public GamePlayer () { }
 
@@ -51,5 +61,9 @@ public class GamePlayer {
 
     public void setPlayerId(Player playerId) {
         this.playerId = playerId;
+    }
+
+    public long getId() {
+        return id;
     }
 }
