@@ -2,9 +2,7 @@ package com.codeoftheweb.Salvo;
 
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -16,27 +14,31 @@ public class GamePlayer {
 
     private Date joinDate;
 
+    @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
+    private Set<Ship> ships;
+
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="game_id")
-    private Game gameId;
+    private Game game;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="player_id")
-    private Player playerId;
+    private Player player;
 
     public Map<String, Object> makeGamePlayerDTO(){
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("Id", this.getId());
-        dto.put("Player", this.getPlayerId().makePlayerDTO());
+        dto.put("id", this.getId());
+        dto.put("player", this.getPlayer().makePlayerDTO());
         return dto;
     }
 
-    public GamePlayer () { }
+    public GamePlayer() {  }
 
-    public GamePlayer(Date joinDate, Game gameId, Player playerId) {
+    public GamePlayer(Date joinDate, Game game, Player player) {
         this.joinDate = joinDate;
-        this.gameId = gameId;
-        this.playerId = playerId;
+        this.game = game;
+        this.player = player;
     }
 
     public Date getJoinDate() {
@@ -47,23 +49,35 @@ public class GamePlayer {
         this.joinDate = joinDate;
     }
 
-    public Game getGameId() {
-        return gameId;
+
+    public Game getGame() {
+        return game;
     }
 
-    public void setGameId(Game gameId) {
-        this.gameId = gameId;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
-    public Player getPlayerId() {
-        return playerId;
+
+    public Player getPlayer() {
+        return player;
     }
 
-    public void setPlayerId(Player playerId) {
-        this.playerId = playerId;
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+
+    public Set<Ship> getShips() {
+        return ships;
+    }
+
+    public void setShips(Set<Ship> ships) {
+        this.ships = ships;
     }
 
     public long getId() {
         return id;
     }
+
 }

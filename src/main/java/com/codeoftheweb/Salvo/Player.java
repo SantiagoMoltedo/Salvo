@@ -20,19 +20,19 @@ public class Player {
     private long id;
     private String userName; //Defino el string de UserName para el nombre del usuaria (su mail)
 
-    @OneToMany(mappedBy = "playerId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     private Set<GamePlayer> gamePlayers;
     
     public Map<String, Object> makePlayerDTO(){
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("User Name:", this.getUserName());
-        dto.put("Id:", this.getId());
+        dto.put("email", this.getUserName());
+        dto.put("id", this.getId());
         return dto;
     }
 
     @JsonIgnore
     public List<Game> getGameId() {
-        return gamePlayers.stream().map(GamePlayer::getGameId).collect(Collectors.toList());
+        return gamePlayers.stream().map(GamePlayer::getGame).collect(Collectors.toList());
     }
 
     public Player() {

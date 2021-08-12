@@ -4,7 +4,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 public class SalvoApplication {
@@ -14,7 +18,7 @@ public class SalvoApplication {
 	}
 
 	@Bean //Con Bean defino jugadores hard codeados
-	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository) {
+	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository, ShipRepository shipRepository) {
 		return (args) -> {
 
 			Player player1 = new Player("Jugador hard codeado 1"); //Creo al Player 1, que es hard codeado y va a estar siempre en el repositorio
@@ -54,6 +58,25 @@ public class SalvoApplication {
             Date joinDate4 = new Date ();
             GamePlayer gamePlayer4 = new GamePlayer(joinDate4,game2,player4);
             gamePlayerRepository.save(gamePlayer4);
+
+
+            List<String> location1 = Arrays.asList("A1","B1","C1");
+            Ship ship1 = new Ship("Destroyer",gamePlayer1,location1);
+            shipRepository.save(ship1);
+
+            List<String> location2 = Arrays.asList("E4","E5","E6","E7","E8");
+            Ship ship2 = new Ship("Patrol Boat",gamePlayer1,location2);
+            shipRepository.save(ship2);
+
+            List<String> location3 = Arrays.asList("B7","C7","D7");
+            Ship ship3 = new Ship("Destroyer",gamePlayer1,location3);
+            shipRepository.save(ship3);
+
+            List<String> location4 = Arrays.asList("J3","J4","J5","J6");
+            Ship ship4 = new Ship("Submarine",gamePlayer1,location4);
+            shipRepository.save(ship4);
+
+
 			};
 	}
 }

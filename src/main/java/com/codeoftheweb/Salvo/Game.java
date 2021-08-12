@@ -16,14 +16,14 @@ public class Game {
     private long id;
     private Date creationDate;
 
-    @OneToMany(mappedBy="gameId", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
     private Set<GamePlayer> gamePlayers;
 
     public Map<String, Object> makeGameDTO(){
         Map<String, Object> dto = new LinkedHashMap<>();
-        dto.put("Id", this.getId());
-        dto.put("Created", this.getCreationDate());
-        dto.put("Game Players", this.getGamePlayers()
+        dto.put("id", this.getId());
+        dto.put("created", this.getCreationDate());
+        dto.put("gamePlayers", this.getGamePlayers()
                 .stream()
                 .map(GamePlayer::makeGamePlayerDTO)
                 .collect(Collectors.toList()));
@@ -31,7 +31,7 @@ public class Game {
     }
     @JsonIgnore
     public List<Player> getPlayerId() {
-        return gamePlayers.stream().map(GamePlayer::getPlayerId).collect(Collectors.toList());
+        return gamePlayers.stream().map(GamePlayer::getPlayer).collect(Collectors.toList());
     }
 
     public Game () { }
