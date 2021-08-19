@@ -17,6 +17,9 @@ public class GamePlayer {
     @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
     private Set<Ship> ships;
 
+    @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
+    private Set<Salvo> salvos;
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="game_id")
@@ -75,6 +78,16 @@ public class GamePlayer {
     public void setShips(Set<Ship> ships) {
         this.ships = ships;
     }
+
+
+    public Set<Salvo> getSalvos() {
+        return salvos;
+    }
+
+    public void setSalvos(Set<Salvo> salvos) {
+        this.salvos = salvos;
+    }
+
 
     public long getId() {
         return id;

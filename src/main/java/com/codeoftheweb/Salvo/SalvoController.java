@@ -31,16 +31,27 @@ public class SalvoController {
 
     public Map<String, Object> makeGameViewDTO(GamePlayer gamePlayer){
         Map<String, Object> dto = new LinkedHashMap<>();
+
         dto.put("id", gamePlayer.getGame().getId());
+
         dto.put("created", gamePlayer.getGame().getCreationDate());
+
         dto.put("gamePlayers", gamePlayer.getGame().getGamePlayers()
                 .stream()
                 .map(GamePlayer::makeGamePlayerDTO)
                 .collect(Collectors.toList()));
+
         dto.put("ships", gamePlayer.getShips()
                 .stream()
-                .map(ship -> ship.makeShipDTO())
+                .map(Ship::makeShipDTO)
                 .collect(Collectors.toList()));
+
+        dto.put("salvoes", gamePlayer.getGame().getGamePlayers()
+                .stream()
+                .flatMap(GamePlayer->GamePlayer.getSalvos() //flatMap sirve para aplanar una lista que tiene otra lista adentro (la lista mas grande) para unirlas
+                        .stream()
+                        .map(Salvo::makeSalvoDTO))
+                        .collect(Collectors.toList()));
         return dto;
     }
 
