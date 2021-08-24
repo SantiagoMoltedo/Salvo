@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity /*Se cre la clase como una entidad o objeto*/
@@ -22,6 +19,9 @@ public class Player {
 
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     private Set<GamePlayer> gamePlayers;
+
+    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
+    private Set<Score> scores;
     
     public Map<String, Object> makePlayerDTO(){
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
@@ -55,8 +55,23 @@ public class Player {
     }
 
 
-    public Player(Set<GamePlayer> gamePlayers) {
+    public Player(Set<GamePlayer> gamePlayers, Set<Score> scores) {
         this.gamePlayers = gamePlayers;
+        this.scores = scores;
+    }
+
+    public Set<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(Set<Score> scores) {
+        this.scores = scores;
+    }
+
+    //Para obtener los scores de un player XQ ESTOY EN PLAYER de un solo Game, xq si jugue a varios juegos
+    //Se van a mandar todos los scores de todos los juegos del player.
+    public Optional<Score> getScore(Game game) {
+        return this.scores.stream().filter(s -> s.getGame()/*.getId()*/ == game/*.getId()*/).findFirst(); //findFirst agarra el primero,  y el filter filtra para agarrar el game que coincida (1 solo)
     }
 
     public Set<GamePlayer> getGamePlayers() {
@@ -66,6 +81,8 @@ public class Player {
     public void setGamePlayers(Set<GamePlayer> gamePlayers) {
         this.gamePlayers = gamePlayers;
     }
+
+
 
     public long getId() {
         return id;

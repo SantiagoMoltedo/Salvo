@@ -88,9 +88,13 @@ public class GamePlayer {
         this.salvos = salvos;
     }
 
+    public Optional<Score> getScore () {
+        return this.player.getScore(game);
+    }
 
     public long getId() {
         return id;
     }
 
 }
+

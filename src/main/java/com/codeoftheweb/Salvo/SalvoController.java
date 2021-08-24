@@ -22,11 +22,13 @@ public class SalvoController {
     private GamePlayerRepository gamePlayerRepo;
 
     @RequestMapping("/games")
-    public List<Map<String,Object>> getGameDTO() {
-        return gameRepo.findAll()
+    public Map<String,Object> Game () {
+        Map<String, Object> map = new LinkedHashMap<String, Object> ();
+        map.put ("games",  gameRepo.findAll()
                 .stream()
                 .map(Game::makeGameDTO)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
+        return map;
     }
 
     public Map<String, Object> makeGameViewDTO(GamePlayer gamePlayer){

@@ -18,7 +18,11 @@ public class SalvoApplication {
 	}
 
 	@Bean //Con Bean defino jugadores hard codeados
-	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository, ShipRepository shipRepository, SalvoRepository salvoRepository) {
+	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository,
+									  GamePlayerRepository gamePlayerRepository,
+									  ShipRepository shipRepository,
+									  SalvoRepository salvoRepository,
+									  ScoreRepository scoreRepository) {
 		return (args) -> {
             //Guardado de PLAYERS
 			Player player1 = new Player("Jugador hard codeado 1"); //Creo al Player 1, que es hard codeado y va a estar siempre en el repositorio
@@ -95,6 +99,12 @@ public class SalvoApplication {
 			Salvo salvo6 = new Salvo(3,Arrays.asList("E4","E5","E6","E7","E8"),gamePlayer2);
 			salvoRepository.save(salvo6);
 
+			Date finnishDate1 = new Date ();
+			Score score1 = new Score(game1,player1,1.0,finnishDate1);
+			scoreRepository.save(score1);
+
+            Score score2 = new Score(game1,player2,0.0 ,finnishDate1);
+            scoreRepository.save(score2);
 			};
 	}
 }
