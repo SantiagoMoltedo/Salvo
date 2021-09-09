@@ -36,7 +36,7 @@ public class Game {
                         return gamePlayer.getScore().get().makeScoreDTO();
                     }
                     else{
-                        return null;
+                        return "";
                     }
                 }));
         return dto;

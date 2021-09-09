@@ -15,14 +15,17 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native") /*Que se genere automaticmente la ID*/
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
+
     private String userName; //Defino el string de UserName para el nombre del usuaria (su mail)
+
+    private String password;
 
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     private Set<GamePlayer> gamePlayers;
 
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     private Set<Score> scores;
-    
+
     public Map<String, Object> makePlayerDTO(){
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("email", this.getUserName());
@@ -38,26 +41,34 @@ public class Player {
     public Player() {
     } //Construyo Player
 
-    public Player(String user) { //Construyo player con un argumento que es un string user que va a ser el User Name
-        this.userName = user;
+    public Player(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
     }
 
-    public String getUserName() { //Recivo UserName
-        return userName;
-    }
-
-    public void setUserName(String UserName) { //Seteo UserName a un nuevo player
-        this.userName = UserName;
+    public Player(Set<GamePlayer> gamePlayers, Set<Score> scores) {
+        this.gamePlayers = gamePlayers;
+        this.scores = scores;
     }
 
     public String toString() {
         return userName;
     }
 
+    public String getUserName() {
+        return userName;
+    }
 
-    public Player(Set<GamePlayer> gamePlayers, Set<Score> scores) {
-        this.gamePlayers = gamePlayers;
-        this.scores = scores;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Set<Score> getScores() {
@@ -81,8 +92,6 @@ public class Player {
     public void setGamePlayers(Set<GamePlayer> gamePlayers) {
         this.gamePlayers = gamePlayers;
     }
-
-
 
     public long getId() {
         return id;

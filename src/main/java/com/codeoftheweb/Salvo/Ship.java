@@ -15,11 +15,11 @@ public class Ship {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
 
-    private String shipType;
+    private String type;
 
     @ElementCollection
     @Column(name="shipLocations")
-    private List<String> location;
+    private List<String> shipLocations;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="gamePlayer_id")
@@ -27,27 +27,27 @@ public class Ship {
 
     public Map<String, Object> makeShipDTO(){
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("type", this.getShipType());
-        dto.put("locations", this.getLocation());
+        dto.put("type", this.getType());
+        dto.put("locations", this.getShipLocations());
         return dto;
     }
 
 
     public Ship() {    }
 
-    public Ship(String shipType, GamePlayer gamePlayer, List<String> location) {
-        this.shipType = shipType;
+    public Ship(String type, GamePlayer gamePlayer, List<String> shipLocations) {
+        this.type = type;
         this.gamePlayer = gamePlayer;
-        this.location = location;
+        this.shipLocations = shipLocations;
     }
 
     //SHIPTYPE
-    public String getShipType() {
-        return shipType;
+    public String getType() {
+        return type;
     }
 
-    public void setShipType(String shipType) {
-        this.shipType = shipType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     //GAMEPLAYERID get set
@@ -60,11 +60,11 @@ public class Ship {
     }
 
     //Location
-    public List<String> getLocation() {
-        return location;
+    public List<String> getShipLocations() {
+        return shipLocations;
     }
 
-    public void setLocation(List<String> location) {
-        this.location = location;
+    public void setShipLocations(List<String> shipLocations) {
+        this.shipLocations = shipLocations;
     }
 }

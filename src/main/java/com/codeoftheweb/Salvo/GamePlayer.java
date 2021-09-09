@@ -3,7 +3,6 @@ package com.codeoftheweb.Salvo;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 public class GamePlayer {
@@ -13,6 +12,14 @@ public class GamePlayer {
     private long id;
 
     private Date joinDate;
+
+    @ElementCollection
+    @Column(name="opponentHits")
+    private List<String> opponentHits;
+
+    @ElementCollection
+    @Column(name="selfHits")
+    private List<String> selfHits;
 
     @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
     private Set<Ship> ships;
@@ -36,12 +43,24 @@ public class GamePlayer {
         return dto;
     }
 
+    public Map<String, Object> MakeHitDTO(){
+        Map<String, Object> dto = new LinkedHashMap<>();
+        dto.put("self", this.getSelfHits());
+        dto.put("opponent", this.getOpponentHits());
+        return dto;
+    }
+
     public GamePlayer() {  }
 
     public GamePlayer(Date joinDate, Game game, Player player) {
         this.joinDate = joinDate;
         this.game = game;
         this.player = player;
+    }
+
+    public GamePlayer(List<String> opponentHits, List<String> selfHits) {
+        this.opponentHits = opponentHits;
+        this.selfHits = selfHits;
     }
 
     public Date getJoinDate() {
@@ -51,7 +70,6 @@ public class GamePlayer {
     public void setJoinDate(Date joinDate) {
         this.joinDate = joinDate;
     }
-
 
     public Game getGame() {
         return game;
@@ -90,6 +108,22 @@ public class GamePlayer {
 
     public Optional<Score> getScore () {
         return this.player.getScore(game);
+    }
+
+    public List<String> getOpponentHits() {
+        return opponentHits;
+    }
+
+    public void setOpponentHits(List<String> opponentHits) {
+        this.opponentHits = opponentHits;
+    }
+
+    public List<String> getSelfHits() {
+        return selfHits;
+    }
+
+    public void setSelfHits(List<String> selfHits) {
+        this.selfHits = selfHits;
     }
 
     public long getId() {
