@@ -121,7 +121,7 @@ public class SalvoController {
                                         HttpStatus.UNAUTHORIZED);
         }
 
-        if (playerRepository.findByUserName(authentication.getName()).getGamePlayers().stream().noneMatch(x -> x.getId() != gamePlayerId) ){
+        if (playerRepository.findByUserName(authentication.getName()).getGamePlayers().stream().noneMatch(x -> x.getId() == gamePlayerId) ){
             return new ResponseEntity<>(makeMap("error","No estas en el juego que queres modificar"),
                                         HttpStatus.UNAUTHORIZED);
         }
@@ -133,8 +133,8 @@ public class SalvoController {
 
 //      PARTE DE LA LISTA
         for (Ship ship: ships){
-            if (ship.getType().equals("carrier") | ship.getType().equals("battleship") |
-                ship.getType().equals("submarine") | ship.getType().equals("destroyer") |
+            if(!ship.getType().equals("carrier") & ship.getType().equals("battleship") &
+                ship.getType().equals("submarine") & ship.getType().equals("destroyer") &
                 ship.getType().equals("patrolboat")){
 
                 return new ResponseEntity<>(makeMap("error", "Nombres de los barcos incorrectos"),
