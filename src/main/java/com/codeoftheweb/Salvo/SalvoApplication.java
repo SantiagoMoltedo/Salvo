@@ -97,32 +97,6 @@ public class SalvoApplication {
 			Date joinDate6 = new Date();
 			GamePlayer gamePlayer6 = new GamePlayer(joinDate6, game3, player4);
 			gamePlayerRepository.save(gamePlayer6);
-
-			//Guardado de SALVOS
-			Salvo salvo1 = new Salvo(1, Arrays.asList("J3"), gamePlayer1);
-			salvoRepository.save(salvo1);
-
-			Salvo salvo2 = new Salvo(1, Arrays.asList("A1", "B1", "C1", "D1"), gamePlayer2);
-			salvoRepository.save(salvo2);
-
-			Salvo salvo3 = new Salvo(2, Arrays.asList("J4", "J5", "J6", "J7", "J8"), gamePlayer1);
-			salvoRepository.save(salvo3);
-
-			Salvo salvo4 = new Salvo(2, Arrays.asList("C3"), gamePlayer2);
-			salvoRepository.save(salvo4);
-
-			Salvo salvo5 = new Salvo(3, Arrays.asList("H2"), gamePlayer1);
-			salvoRepository.save(salvo5);
-
-			Salvo salvo6 = new Salvo(3, Arrays.asList("E4", "E5", "E6", "E7", "E8"), gamePlayer2);
-			salvoRepository.save(salvo6);
-
-			Date finnishDate1 = new Date();
-			Score score1 = new Score(game1, player1, 1.0, finnishDate1);
-			scoreRepository.save(score1);
-
-			Score score2 = new Score(game1, player2, 0.0, finnishDate1);
-			scoreRepository.save(score2);
 		};
 	}
 }
